@@ -1,10 +1,11 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback , useEffect} from 'react'
+import CheckBox from './Components/CheckBox'
 
 function App() {
   const [length, setLength] = useState(8)
   const [numAllow, setNumAllow] = useState(false)
   const [charAllow, setCharAllow] = useState(false)
-  const [pass, setPass] = useState('afsd')
+  const [pass, setPass] = useState('')
 
   let Generate = useCallback(() => {
     let pass = ''
@@ -17,6 +18,13 @@ function App() {
       const index = Math.floor(Math.random() * str.length)
       pass += str.charAt(index)
     }
+
+    setPass(pass)
+  }, [length, numAllow, charAllow])
+
+
+  useEffect(() => {
+    Generate()
   }, [length, numAllow, charAllow])
 
 
@@ -47,27 +55,8 @@ function App() {
 
           </div>
 
-          <div>
-            <input
-              type="checkbox"
-              id='nums'
-              value={numAllow}
-              className='cursor-pointer text-lg scale-125'
-              onChange={() => setNumAllow((prev) => !prev)}
-            />
-            <label htmlFor="nums" className='select-none text-lg text-white ml-2'>Numbers Allowed</label>
-          </div>
-
-          <div>
-            <input
-              type="checkbox"
-              id='chars'
-              value={numAllow}
-              className='cursor-pointer text-lg scale-125'
-              onChange={() => setNumAllow((prev) => !prev)}
-            />
-            <label htmlFor="chars" className='select-none text-lg text-white ml-2'>Characters Allowed</label>
-          </div>
+          <CheckBox id='Numbers' callback={() => setNumAllow((prev) => !prev)} value={numAllow} />
+          <CheckBox id='Characters' callback={() => setCharAllow((prev) => !prev)} value={charAllow} />
         </div>
 
       </main>
