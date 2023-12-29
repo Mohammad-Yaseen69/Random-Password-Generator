@@ -1,4 +1,4 @@
-import { useState, useCallback , useEffect} from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import CheckBox from './Components/CheckBox'
 
 function App() {
@@ -6,8 +6,9 @@ function App() {
   const [numAllow, setNumAllow] = useState(false)
   const [charAllow, setCharAllow] = useState(false)
   const [pass, setPass] = useState('')
+  const passwordRef = useRef(null)
 
-  let Generate = useCallback(() => {
+  const Generate = useCallback(() => {
     let pass = ''
     let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstucwxyz'
 
@@ -22,6 +23,10 @@ function App() {
     setPass(pass)
   }, [length, numAllow, charAllow])
 
+  const copyToClip = useCallback(() => {
+    passwordRef.current.select()
+    window.navigator.clipboard.writeText(pass)
+  })
 
   useEffect(() => {
     Generate()
@@ -34,11 +39,18 @@ function App() {
       <main className='rounded-xl flex flex-col justify-center items-center gap-4'>
 
         <div className='top w-full flex justify-center'>
+
           <input type="text"
             value={pass}
             readOnly
-            className='outline-none w-3/5 rounded-lg h-10 p-2 text-lg rounded-r-none' />
-          <button className='px-4 py-2 bg-red-800 rounded-md text-white rounded-l-none'>Copy</button>
+            className='outline-none w-3/5 rounded-lg h-10 p-2 text-lg rounded-r-none'
+            ref={passwordRef}
+          />
+
+          <button
+            className='px-4 py-2 bg-red-800 rounded-md text-white rounded-l-none'
+            onClick={copyToClip}
+          >Copy</button>
         </div>
 
         <div className="bottom w-3/4 flex justify-around">
