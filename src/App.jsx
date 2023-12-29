@@ -12,7 +12,7 @@ function App() {
     let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstucwxyz'
 
     if (numAllow) str += '1234567890'
-    if (charAllow) str += '$@!&#,'
+    if (charAllow) str += '$@!&#,`~<>/?'
 
     for (let i = 0; i < length; i++) {
       const index = Math.floor(Math.random() * str.length)
@@ -46,15 +46,13 @@ function App() {
             <input
               type="range"
               min={6}
-              max={100}
+              max={50}
               value={length}
               className='cursor-pointer'
               onChange={(e) => { setLength(e.target.value) }}
             />
             <label className='text-orange-700 text-lg'>Length: {length}</label>
-
           </div>
-
           <CheckBox id='Numbers' callback={() => setNumAllow((prev) => !prev)} value={numAllow} />
           <CheckBox id='Characters' callback={() => setCharAllow((prev) => !prev)} value={charAllow} />
         </div>
