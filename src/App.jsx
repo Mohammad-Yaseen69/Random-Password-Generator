@@ -53,6 +53,7 @@ function App() {
               id='nums'
               value={numAllow}
               className='cursor-pointer text-lg scale-125'
+              onChange={() => setNumAllow((prev) => !prev)}
             />
             <label htmlFor="nums" className='select-none text-lg text-white ml-2'>Numbers Allowed</label>
           </div>
@@ -63,6 +64,7 @@ function App() {
               id='chars'
               value={numAllow}
               className='cursor-pointer text-lg scale-125'
+              onChange={() => setNumAllow((prev) => !prev)}
             />
             <label htmlFor="chars" className='select-none text-lg text-white ml-2'>Characters Allowed</label>
           </div>
